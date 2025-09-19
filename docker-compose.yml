@@ -1,0 +1,30 @@
+services:
+  vm-php:
+    build:
+      context: ./
+      dockerfile: ./ops/php/Dockerfile
+      target: final
+    container_name: mt-php
+    restart: unless-stopped
+    # Uncomment volumes for development
+    volumes:
+      - ".:/app"
+    ports:
+      - "9000:9000"
+    networks:
+      - vm
+
+  vm-nginx:
+    image: nginx:stable-alpine3.21
+    container_name: vm-nginx
+    depends_on:
+      - vm-php
+    volumes:
+      - "./ops/nginx/conf.d:/etc/nginx/conf.d"
+    ports:
+     - "80:80"
+    networks:
+      - vm
+
+networks:
+  vm:
