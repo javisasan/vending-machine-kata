@@ -4,7 +4,7 @@ services:
       context: ./
       dockerfile: ./ops/php/Dockerfile
       target: final
-    container_name: mt-php
+    container_name: vm-php
     restart: unless-stopped
     # Uncomment volumes for development
     volumes:
