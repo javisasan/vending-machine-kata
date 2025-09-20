@@ -18,6 +18,7 @@ help:
 	@echo "    dev              - compose up dev environment and apply JSON fixtures"
 	@echo "    nodev            - compose down dev environment"
 	@echo "    shell            - enter the PHP container"
+	@echo "    unit             - run unit tests"
 	@echo "    cache            - execute cache:clear"
 	@echo "    tree             - show git log tree"
 	@echo "    purge            - removes ALL docker containers, images and volumes in dev machine"
@@ -31,6 +32,9 @@ nodev:
 
 shell:
 	@docker exec -ti $(CONTAINER) bash
+
+unit:
+	@docker exec $(CONTAINER) ./vendor/bin/phpunit --testsuite unit --stop-on-failure --colors=always
 
 cache:
 	@docker exec $(CONTAINER) php bin/console cache:clear
