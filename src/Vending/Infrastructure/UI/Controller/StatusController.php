@@ -1,9 +1,9 @@
 <?php
 
-namespace App\VendingMachine\Infrastructure\UI\Controller;
+namespace App\Vending\Infrastructure\UI\Controller;
 
 use App\SharedKernel\Infrastructure\Messenger\Bus\QueryBus;
-use App\VendingMachine\Application\Query\StatusQuery;
+use App\Vending\Application\Machine\Query\StatusQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -22,7 +22,7 @@ class StatusController extends AbstractController
         );
 
         return new JsonResponse(
-            $response->getProducts()
+            $response->toArray()
         );
     }
 }
