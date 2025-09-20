@@ -36,6 +36,13 @@ services:
         class: 'App\SharedKernel\Infrastructure\Messenger\Bus\QueryBus'
         public: true
 
+    vending_machine_command_handlers:
+        namespace: App\Vending\Application\Machine\Command\
+        resource: '%kernel.project_dir%/src/Vending/Application/Machine/Command/*CommandHandler.php'
+        public: true
+        tags:
+            - { name: messenger.message_handler, bus: messenger.bus.commands }
+
     vending_machine_query_handlers:
         namespace: App\Vending\Application\Machine\Query\
         resource: '%kernel.project_dir%/src/Vending/Application/Machine/Query/*QueryHandler.php'

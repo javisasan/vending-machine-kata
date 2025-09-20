@@ -6,9 +6,8 @@ use App\Vending\Domain\Machine\Repository\VendingMachineRepositoryInterface;
 
 class StatusQueryHandler
 {
-    public function __construct(
-        private VendingMachineRepositoryInterface $repository
-    ) {
+    public function __construct(private VendingMachineRepositoryInterface $repository)
+    {
     }
 
     public function __invoke(StatusQuery $query): StatusQueryHandlerResponse

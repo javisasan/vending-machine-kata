@@ -6,17 +6,18 @@ use App\Vending\Domain\Machine\Entity\VendingMachine;
 use App\Vending\Domain\Machine\Repository\VendingMachineRepositoryInterface;
 use App\Vending\Infrastructure\Service\FileManagerInterface;
 
-class JsonVendingMachineRepository implements VendingMachineRepositoryInterface
+class SerializedVendingMachineRepository implements VendingMachineRepositoryInterface
 {
     private const DATA_PATH = __DIR__ . '/../../../../var/data/vending-machine.json';
 
+    //public function __construct(private FileManagerInterface $fileManager, private SerializerInterface $serializer)
     public function __construct(private FileManagerInterface $fileManager)
     {
     }
 
     public function create(): VendingMachine
     {
-        $vendingMachine = new VendingMachine();
+        $vendingMachine = VendingMachine::create();
 
         $this->persist($vendingMachine);
 

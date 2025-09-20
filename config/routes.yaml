@@ -2,3 +2,8 @@ status:
     path: /
     controller: App\Vending\Infrastructure\UI\Controller\StatusController
     methods: GET
+
+service:
+    path: /service
+    controller: App\Vending\Infrastructure\UI\Controller\ServiceController
+    methods: POST
