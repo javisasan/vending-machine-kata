@@ -77,10 +77,8 @@ class VendingMachine
         $this->credit->addCoin($coin);
     }
 
-    /*
-    public function addExchange(CoinCartridge $coinCartridge): void
+    public function emptyCredit(): void
     {
-        $this->exchange->append($coinCartridge);
+        $this->credit = new Cash();
     }
-     */
 }

@@ -83,4 +83,17 @@ class VendingMachineTest extends TestCase
 
         $this->assertSame(1.65, $sut->getCredit()->getTotalAmount());
     }
+
+    public function testCanEmptyCredit(): void
+    {
+        $sut = VendingMachine::create();
+
+        $coinTwentyFiveCents = Coin::create(0.25);
+
+        $sut->addCredit($coinTwentyFiveCents);
+
+        $sut->emptyCredit();
+
+        $this->assertSame(0.0, $sut->getCredit()->getTotalAmount());
+    }
 }
