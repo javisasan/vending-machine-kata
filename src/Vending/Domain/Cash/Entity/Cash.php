@@ -41,4 +41,41 @@ class Cash
 
         return $this->coinCartridgeCollection[$coinValue]->getQuantity();
     }
+
+    public function addCoin(Coin $coin): void
+    {
+        $coinCartridge = $this->getCoinCartridge($coin->getValue());
+
+        if ($coinCartridge) {
+            $coinCartridge->add(1);
+
+            return;
+        }
+
+        $coinCartridge = CoinCartridge::create($coin->getValue(), 1);
+
+        $this->append($coinCartridge);
+    }
+
+    public function getTotalAmount(): float
+    {
+        $total = 0;
+
+        foreach ($this->coinCartridgeCollection as $cartridgeCollection) {
+            $total += $cartridgeCollection->getCoin()->getValue() * $cartridgeCollection->getQuantity();
+        }
+
+        return $total;
+    }
+
+    private function getCoinCartridge(float $value): ?CoinCartridge
+    {
+        $coinValue = (string) $value;
+
+        if (!in_array($coinValue, array_keys($this->coinCartridgeCollection))) {
+            return null;
+        }
+
+        return $this->coinCartridgeCollection[$coinValue];
+    }
 }

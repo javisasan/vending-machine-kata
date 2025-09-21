@@ -17,9 +17,9 @@ class StatusQueryHandlerResponse
     public function toArray(): array
     {
         return [
+            'credit' => $this->vendingMachine->getCredit()->getTotalAmount(),
             'inventory' => $this->getInventoryToArray($this->vendingMachine->getInventory()),
             'exchange' => $this->getExchangeToArray($this->vendingMachine->getExchange()),
-            'credit' => $this->vendingMachine->getCredit(),
         ];
     }
 
