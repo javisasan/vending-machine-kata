@@ -15,12 +15,14 @@ class CoinCartridge
 
     public static function create(float $value, int $quantity): self
     {
-        $coin = Coin::create($value);
         if ($quantity < 1) {
             throw new InvalidNumberOfCoinsException();
         }
 
-        return new self($coin, $quantity);
+        return new self(
+            Coin::create($value),
+            $quantity
+        );
     }
 
     public function getCoin(): Coin
@@ -31,13 +33,6 @@ class CoinCartridge
     public function getQuantity(): int
     {
         return $this->quantity;
-    }
-
-    private function checkQuantity(int $quantity): void
-    {
-        if ($quantity < 1) {
-            throw new InvalidNumberOfCoinsException();
-        }
     }
 
     public function add(int $quantity): void
@@ -55,5 +50,12 @@ class CoinCartridge
         }
 
         $this->quantity -= $quantity;
+    }
+
+    private function checkQuantity(int $quantity): void
+    {
+        if ($quantity < 1) {
+            throw new InvalidNumberOfCoinsException();
+        }
     }
 }

@@ -10,7 +10,6 @@ class SerializedVendingMachineRepository implements VendingMachineRepositoryInte
 {
     private const DATA_PATH = __DIR__ . '/../../../../var/data/vending-machine.json';
 
-    //public function __construct(private FileManagerInterface $fileManager, private SerializerInterface $serializer)
     public function __construct(private FileManagerInterface $fileManager)
     {
     }

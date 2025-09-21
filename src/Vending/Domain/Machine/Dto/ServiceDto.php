@@ -3,9 +3,11 @@
 namespace App\Vending\Domain\Machine\Dto;
 
 use App\Vending\Domain\Cash\Dto\CoinCartridgeDto;
+use App\Vending\Domain\Inventory\Dto\InventoryItemDto;
 
 class ServiceDto
 {
+    /** @var InventoryItemDto[] $inventory */
     private array $inventory = [];
     /** @var CoinCartridgeDto[] $exchange */
     private array $exchange = [];
@@ -16,6 +18,9 @@ class ServiceDto
         $this->exchange = $exchange;
     }
 
+    /**
+     * @return InventoryItemDto[]
+     */
     public function getInventory(): array
     {
         return $this->inventory;

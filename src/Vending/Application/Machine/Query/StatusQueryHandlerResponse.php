@@ -4,6 +4,8 @@ namespace App\Vending\Application\Machine\Query;
 
 use App\Vending\Domain\Cash\Entity\Cash;
 use App\Vending\Domain\Cash\Entity\CoinCartridge;
+use App\Vending\Domain\Inventory\Entity\Inventory;
+use App\Vending\Domain\Inventory\Entity\InventoryItem;
 use App\Vending\Domain\Machine\Entity\VendingMachine;
 
 class StatusQueryHandlerResponse
@@ -15,10 +17,26 @@ class StatusQueryHandlerResponse
     public function toArray(): array
     {
         return [
-            'inventory' => $this->vendingMachine->getInventory(),
+            'inventory' => $this->getInventoryToArray($this->vendingMachine->getInventory()),
             'exchange' => $this->getExchangeToArray($this->vendingMachine->getExchange()),
             'credit' => $this->vendingMachine->getCredit(),
         ];
+    }
+
+    private function getInventoryToArray(Inventory $inventory): array
+    {
+        $items = [];
+
+        /** @var InventoryItem $inventoryItem */
+        foreach ($inventory->getInventoryItems() as $inventoryItem) {
+            $items[] = [
+                'selector' => $inventoryItem->getItem()->getSelector()->getName(),
+                'price' => $inventoryItem->getPrice()->getValue(),
+                'quantity' => $inventoryItem->getQuantity(),
+            ];
+        }
+
+        return $items;
     }
 
     private function getExchangeToArray(Cash $exchange): array
