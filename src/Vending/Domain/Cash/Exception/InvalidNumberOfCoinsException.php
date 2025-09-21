@@ -8,6 +8,6 @@ class InvalidNumberOfCoinsException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.invalid_number_of_coins', 1002);
+        parent::__construct('Invalid number of coins', 1002);
     }
 }

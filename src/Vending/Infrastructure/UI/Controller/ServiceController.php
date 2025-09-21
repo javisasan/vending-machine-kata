@@ -3,6 +3,7 @@
 namespace App\Vending\Infrastructure\UI\Controller;
 
 use App\Vending\Application\Machine\Command\ServiceCommand;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,12 +20,19 @@ class ServiceController extends AbstractController
     {
         $parameters = json_decode($request->getContent(), true);
 
-        $this->messageBus->dispatch(
-            new ServiceCommand(
-                $parameters['inventory'] ?? [],
-                $parameters['exchange'] ?? []
-            )
-        );
+        try {
+            $this->messageBus->dispatch(
+                new ServiceCommand(
+                    $parameters['inventory'] ?? [],
+                    $parameters['exchange'] ?? []
+                )
+            );
+        } catch (Exception $e) {
+            return new JsonResponse([
+                'error_code' => $e->getCode(),
+                'message' => $e->getMessage(),
+            ]);
+        }
 
         return new JsonResponse([
             'status' => 'ok'

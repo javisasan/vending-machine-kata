@@ -8,6 +8,6 @@ class ItemDoesNotExistException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.item_does_not_exist', 2005);
+        parent::__construct('Item dos not exist', 2005);
     }
 }
