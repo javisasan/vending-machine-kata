@@ -22,6 +22,7 @@ help:
 	@echo "    cache            - execute cache:clear"
 	@echo "    tree             - show git log tree"
 	@echo "    purge            - removes ALL docker containers, images and volumes in dev machine"
+	@echo "    logs             - show logs from PHP container (-f mode)"
 	@echo
 
 dev:
@@ -44,3 +45,6 @@ tree:
 
 purge:
 	@sh clean-all.sh
+
+logs:
+	@docker logs -f $(CONTAINER)

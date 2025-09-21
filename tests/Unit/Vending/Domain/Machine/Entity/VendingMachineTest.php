@@ -2,12 +2,11 @@
 
 namespace Tests\Unit\Vending\Domain\Machine\Entity;
 
-use App\Vending\Domain\Cash\Dto\CoinCartridgeDto;
 use App\Vending\Domain\Cash\Entity\Cash;
 use App\Vending\Domain\Cash\Entity\Coin;
-use App\Vending\Domain\Inventory\Dto\InventoryItemDto;
+use App\Vending\Domain\Cash\Entity\CoinCartridge;
 use App\Vending\Domain\Inventory\Entity\Inventory;
-use App\Vending\Domain\Machine\Dto\ServiceDto;
+use App\Vending\Domain\Inventory\Entity\InventoryItem;
 use App\Vending\Domain\Machine\Entity\VendingMachine;
 use PHPUnit\Framework\TestCase;
 
@@ -29,21 +28,26 @@ class VendingMachineTest extends TestCase
         $this->assertSame(0, count($credit->getCoinCartridges()));
     }
 
-    public function testCanCreateVendingMachineFromServiceDto(): void
+    public function testCanCreateVendingMachineFromService(): void
     {
-        $inventoryItemDto1 = new InventoryItemDto('water', 0.65, 4);
-        $inventoryItemDto2 = new InventoryItemDto('juice', 1.00, 5);
-        $inventoryItemDto3 = new InventoryItemDto('soda', 1.50, 6);
+        $inventoryParam = new Inventory();
+        $cashParam = new Cash();
 
-        $coinCartridgeDto1 = new CoinCartridgeDto(0.25, 3);
-        $coinCartridgeDto2 = new CoinCartridgeDto(0.05, 5);
+        $inventoryItem1= InventoryItem::create('water', 0.65, 4);
+        $inventoryItem2 = InventoryItem::create('juice', 1.00, 5);
+        $inventoryItem3 = InventoryItem::create('soda', 1.50, 6);
 
-        $serviceDto = new ServiceDto(
-            [$inventoryItemDto1, $inventoryItemDto2, $inventoryItemDto3],
-            [$coinCartridgeDto1, $coinCartridgeDto2]
-        );
+        $inventoryParam->append($inventoryItem1);
+        $inventoryParam->append($inventoryItem2);
+        $inventoryParam->append($inventoryItem3);
 
-        $sut = VendingMachine::fromService($serviceDto);
+        $coinCartridge1 = CoinCartridge::create(0.25, 3);
+        $coinCartridge2 = CoinCartridge::create(0.05, 5);
+
+        $cashParam->append($coinCartridge1);
+        $cashParam->append($coinCartridge2);
+
+        $sut = VendingMachine::fromService($inventoryParam, $cashParam);
 
         $inventory = $sut->getInventory();
         $exchange = $sut->getExchange();

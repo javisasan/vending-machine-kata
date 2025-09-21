@@ -5,14 +5,15 @@ namespace App\Vending\Application\Machine\Command;
 use App\Vending\Application\Machine\Command\ServiceCommand;
 use App\Vending\Domain\Cash\Dto\CoinCartridgeDto;
 use App\Vending\Domain\Inventory\Dto\InventoryItemDto;
-use App\Vending\Domain\Machine\Dto\ServiceDto;
-use App\Vending\Domain\Machine\Entity\VendingMachine;
 use App\Vending\Domain\Machine\Repository\VendingMachineRepositoryInterface;
+use App\Vending\Domain\Machine\Service\SupplyServiceInterface;
 
 class ServiceCommandHandler
 {
-    public function __construct(private VendingMachineRepositoryInterface $repository)
-    {
+    public function __construct(
+        private SupplyServiceInterface $service,
+        private VendingMachineRepositoryInterface $repository
+    ) {
     }
 
     public function __invoke(ServiceCommand $command): void
@@ -35,10 +36,7 @@ class ServiceCommandHandler
             );
         }
 
-
-        $serviceDto = new ServiceDto($inventory, $exchange);
-
-        $vendingMachine = VendingMachine::fromService($serviceDto);
+        $vendingMachine = $this->service->createVendingMachineFromService($inventory, $exchange);
 
         $this->repository->persist($vendingMachine);
     }
