@@ -12,3 +12,8 @@ user-insert-coin:
     path: /credit/{value}
     controller: App\Vending\Infrastructure\UI\Controller\CreditController
     methods: GET
+
+user-refund:
+    path: /refund
+    controller: App\Vending\Infrastructure\UI\Controller\RefundController
+    methods: GET
