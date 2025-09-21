@@ -17,3 +17,8 @@ user-refund:
     path: /refund
     controller: App\Vending\Infrastructure\UI\Controller\RefundController
     methods: GET
+
+user-buy:
+    path: /buy/{selector}
+    controller: App\Vending\Infrastructure\UI\Controller\BuyController
+    methods: GET

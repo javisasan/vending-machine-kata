@@ -31,6 +31,16 @@ class Cash
         $this->coinCartridgeCollection[$coinValue] = $coinCartridge;
     }
 
+    public function substract(CoinCartridge $coinCartridge): void
+    {
+        $coinValue = (string) $coinCartridge->getCoin()->getValue();
+        $quantity = $coinCartridge->getQuantity();
+
+        if (in_array($coinValue, array_keys($this->coinCartridgeCollection))) {
+            $this->coinCartridgeCollection[$coinValue]->substract($quantity);
+        }
+    }
+
     public function getQuantityForCoinValue(float $value): int
     {
         $coinValue = (string) $value;
