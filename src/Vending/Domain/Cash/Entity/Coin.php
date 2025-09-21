@@ -19,6 +19,6 @@ class Coin
 
     public function getValue(): float
     {
-        return $this->value->getValue();
+        return round($this->value->getValue(), 2);
     }
 }
