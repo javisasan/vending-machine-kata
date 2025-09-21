@@ -45,4 +45,25 @@ class CashTest extends TestCase
         $this->assertSame(2, $sut->getQuantityForCoinValue(0.25));
         $this->assertSame(0.6, $sut->getTotalAmount());
     }
+
+    public function testCanSubstractCoin(): void
+    {
+        $coinTwentyFive = Coin::create(0.25);
+        $coinTwentyFive = Coin::create(0.25);
+
+        $coinCartridge = CoinCartridge::create(0.25, 2);
+
+        $sut = new Cash();
+
+        $sut->addCoin($coinTwentyFive);
+        $sut->addCoin($coinTwentyFive);
+
+        $sut->substract($coinCartridge);
+
+        $data = $sut->getCoinCartridges();
+
+        $this->assertSame(1, count($data));
+        $this->assertSame(0, $sut->getQuantityForCoinValue(0.25));
+        $this->assertSame(0.0, $sut->getTotalAmount());
+    }
 }
