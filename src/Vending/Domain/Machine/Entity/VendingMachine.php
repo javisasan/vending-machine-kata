@@ -4,6 +4,7 @@ namespace App\Vending\Domain\Machine\Entity;
 
 use App\Vending\Domain\Cash\Dto\CoinCartridgeDto;
 use App\Vending\Domain\Cash\Entity\Cash;
+use App\Vending\Domain\Cash\Entity\Coin;
 use App\Vending\Domain\Cash\Entity\CoinCartridge;
 use App\Vending\Domain\Inventory\Dto\InventoryItemDto;
 use App\Vending\Domain\Inventory\Entity\Inventory;
@@ -69,6 +70,11 @@ class VendingMachine
     public function getCredit(): Cash
     {
         return $this->credit;
+    }
+
+    public function addCredit(Coin $coin): void
+    {
+        $this->credit->addCoin($coin);
     }
 
     /*

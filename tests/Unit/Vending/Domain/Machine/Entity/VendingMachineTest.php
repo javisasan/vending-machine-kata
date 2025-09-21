@@ -4,6 +4,7 @@ namespace Tests\Unit\Vending\Domain\Machine\Entity;
 
 use App\Vending\Domain\Cash\Dto\CoinCartridgeDto;
 use App\Vending\Domain\Cash\Entity\Cash;
+use App\Vending\Domain\Cash\Entity\Coin;
 use App\Vending\Domain\Inventory\Dto\InventoryItemDto;
 use App\Vending\Domain\Inventory\Entity\Inventory;
 use App\Vending\Domain\Machine\Dto\ServiceDto;
@@ -63,5 +64,23 @@ class VendingMachineTest extends TestCase
         $this->assertSame(5, $exchange->getQuantityForCoinValue(0.05));
         $this->assertSame(get_class($credit), Cash::class);
         $this->assertSame(0, count($credit->getCoinCartridges()));
+    }
+
+    public function testCanAddCreditToVendindMachine(): void
+    {
+        $sut = VendingMachine::create();
+
+        $coinFiveCents = Coin::create(0.05);
+        $coinTenCents = Coin::create(0.1);
+        $coinTwentyFiveCents = Coin::create(0.25);
+        $coinHundredCents = Coin::create(1);
+
+        $sut->addCredit($coinFiveCents);
+        $sut->addCredit($coinTenCents);
+        $sut->addCredit($coinTwentyFiveCents);
+        $sut->addCredit($coinTwentyFiveCents);
+        $sut->addCredit($coinHundredCents);
+
+        $this->assertSame(1.65, $sut->getCredit()->getTotalAmount());
     }
 }
