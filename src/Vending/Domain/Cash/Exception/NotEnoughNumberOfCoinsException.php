@@ -8,6 +8,6 @@ class NotEnoughNumberOfCoinsException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.not_enough_number_of_coins', 1003);
+        parent::__construct('Not enough number of coins', 1003);
     }
 }

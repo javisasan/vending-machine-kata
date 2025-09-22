@@ -5,7 +5,7 @@ namespace App\Vending\Application\Machine\Query;
 use App\Vending\Domain\Cash\Entity\Cash;
 use App\Vending\Domain\Cash\Entity\CoinCartridge;
 
-class GetBuyExchangeQueryHandlerResponse
+class GetBuyAndExchangeQueryHandlerResponse
 {
     public function __construct(private string $selector, private Cash $exchange)
     {

@@ -8,6 +8,6 @@ class InvalidNumberOfItemsException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.invalid_number_of_items', 2001);
+        parent::__construct('Invalid number of items', 2001);
     }
 }

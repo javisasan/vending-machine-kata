@@ -2,7 +2,7 @@
 
 namespace App\Vending\Application\Machine\Query;
 
-class GetBuyExchangeQuery
+class GetBuyAndExchangeQuery
 {
     public function __construct(private string $selector)
     {

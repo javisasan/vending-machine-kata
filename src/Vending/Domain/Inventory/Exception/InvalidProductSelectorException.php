@@ -8,6 +8,6 @@ class InvalidProductSelectorException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.invalid_product_selector', 2003);
+        parent::__construct('Invalid product selector', 2003);
     }
 }

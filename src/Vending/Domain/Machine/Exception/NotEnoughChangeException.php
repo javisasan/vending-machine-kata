@@ -8,6 +8,6 @@ class NotEnoughChangeException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.not_enough_change_exception', 3002);
+        parent::__construct('Not enough exchange', 3002);
     }
 }

@@ -8,6 +8,6 @@ class ProductIsDepletedException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.product_is_depleted', 3003);
+        parent::__construct('Product is depleted', 3003);
     }
 }

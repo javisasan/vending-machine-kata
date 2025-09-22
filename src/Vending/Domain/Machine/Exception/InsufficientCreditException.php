@@ -8,6 +8,6 @@ class InsufficientCreditException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.insufficient_credit_exception', 3001);
+        parent::__construct('Not enough credit', 3001);
     }
 }

@@ -8,6 +8,6 @@ class InvalidPriceValueException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.invalid_value_for_price', 2002);
+        parent::__construct('Invalid value for price', 2002);
     }
 }

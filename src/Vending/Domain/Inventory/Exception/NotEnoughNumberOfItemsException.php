@@ -8,6 +8,6 @@ class NotEnoughNumberOfItemsException extends DomainException
 {
     public function __construct()
     {
-        parent::__construct('SharedKernel.Domain.exception.not_enough_number_of_items', 2004);
+        parent::__construct('Not enough number of items', 2004);
     }
 }
