@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Vending\Domain\Cash\Entity\ValueObject;
+namespace Tests\Unit\Vending\Domain\Inventory\Entity\ValueObject;
 
 use App\Vending\Domain\Inventory\Entity\ValueObject\Price;
 use App\Vending\Domain\Inventory\Exception\InvalidPriceValueException;
