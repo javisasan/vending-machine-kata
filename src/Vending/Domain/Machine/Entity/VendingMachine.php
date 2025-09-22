@@ -66,12 +66,14 @@ class VendingMachine
     {
         $totalCoins = new Cash();
 
+        /** @var CoinCartridge $coinCartridge */
         foreach ($this->exchange->getCoinCartridges() as $coinCartridge) {
-            $totalCoins->append($coinCartridge);
+            $totalCoins->append(CoinCartridge::create($coinCartridge->getCoin()->getValue(), $coinCartridge->getQuantity()));
         }
 
+        /** @var CoinCartridge $coinCartridge */
         foreach ($this->credit->getCoinCartridges() as $coinCartridge) {
-            $totalCoins->append($coinCartridge);
+            $totalCoins->append(CoinCartridge::create($coinCartridge->getCoin()->getValue(), $coinCartridge->getQuantity()));
         }
 
         return $totalCoins;
@@ -101,14 +103,13 @@ class VendingMachine
     {
         $return = new Cash();
         $itemPrice = $this->inventory->getPriceForItemSelector($itemSelector);
-        $remainder = (int) (($this->credit->getTotalAmount() - $itemPrice) * 100);
+        $remainder = (int) (round($this->credit->getTotalAmount() - $itemPrice, 2) * 100);
 
         if (0 > $remainder) {
             throw new InsufficientCreditException();
         }
 
         $machineCoins = $this->mergeAllMachineCoins()->getCoinCartridges();
-
         krsort($machineCoins);
 
         /** @var CoinCartridge $machineCoin */
@@ -127,7 +128,7 @@ class VendingMachine
             $coinsNeeded = intdiv($remainder, $coinValue);
             $coinsNeeded = $coinQuantity >= $coinsNeeded ? $coinsNeeded : $coinQuantity;
 
-            $return->addCoin(Coin::create($machineCoin->getCoin()->getValue()));
+            $return->append(CoinCartridge::create($machineCoin->getCoin()->getValue(), $coinsNeeded));
 
             $remainder -= $coinValue * $coinsNeeded;
 

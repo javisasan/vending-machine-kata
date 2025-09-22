@@ -4,7 +4,7 @@ namespace App\Vending\Infrastructure\UI\Controller;
 
 use App\SharedKernel\Infrastructure\Messenger\Bus\QueryBus;
 use App\Vending\Application\Machine\Command\BuyItemCommand;
-use App\Vending\Application\Machine\Query\GetBuyExchangeQuery;
+use App\Vending\Application\Machine\Query\GetBuyAndExchangeQuery;
 use App\Vending\Application\Machine\Query\GetBuyExchangeQueryHandlerResponse;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,7 @@ class BuyController extends AbstractController
         try {
             /** @var GetBuyExchangeQueryHandlerResponse $response */
             $response = $this->messageBus->dispatch(
-                new GetBuyExchangeQuery($selector)
+                new GetBuyAndExchangeQuery($selector)
             );
 
             $this->commandBus->dispatch(
