@@ -8,7 +8,7 @@ use App\Vending\Infrastructure\Service\FileManagerInterface;
 
 class SerializedVendingMachineRepository implements VendingMachineRepositoryInterface
 {
-    private const DATA_PATH = __DIR__ . '/../../../../var/data/vending-machine.json';
+    private const DATA_PATH = __DIR__ . '/../../../../var/data/vending-machine.txt';
 
     public function __construct(private FileManagerInterface $fileManager)
     {

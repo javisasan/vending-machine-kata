@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Vending\Domain\Inventory\Dto;
+namespace Tests\Unit\Vending\Application\Machine\Query;
 
 use App\Vending\Application\Machine\Query\CreditQueryHandlerResponse;
 use App\Vending\Domain\Cash\Entity\Coin;
