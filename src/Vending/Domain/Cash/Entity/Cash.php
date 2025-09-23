@@ -2,6 +2,8 @@
 
 namespace App\Vending\Domain\Cash\Entity;
 
+use App\Vending\Domain\Cash\Exception\NotEnoughChangeException;
+
 class Cash
 {
     /** @var CoinCartridge[] */
@@ -75,7 +77,48 @@ class Cash
             $total += $cartridgeCollection->getCoin()->getValue() * $cartridgeCollection->getQuantity();
         }
 
-        return $total;
+        return round($total, 2);
+    }
+
+    public function calculateExchangeCoinsForValue(float $value): Cash
+    {
+        $return = new Cash();
+
+        $remainder = (int) (round($value, 2) * 100);
+
+        $coinCartridges = $this->getCoinCartridges();
+        krsort($coinCartridges);
+
+        /** @var CoinCartridge $coinCartridge */
+        foreach ($coinCartridges as $coinCartridge) {
+            $coinValue = (int) ($coinCartridge->getCoin()->getValue() * 100);
+            $coinQuantity = $coinCartridge->getQuantity();
+
+            if ($coinQuantity === 0) {
+                continue;
+            }
+
+            if ($remainder < $coinValue) {
+                continue;
+            }
+
+            $coinsNeeded = intdiv($remainder, $coinValue);
+            $coinsNeeded = $coinQuantity >= $coinsNeeded ? $coinsNeeded : $coinQuantity;
+
+            $return->append(CoinCartridge::create($coinCartridge->getCoin()->getValue(), $coinsNeeded));
+
+            $remainder -= $coinValue * $coinsNeeded;
+
+            if (empty($remainder)) {
+                break;
+            }
+        }
+
+        if ($remainder > 0) {
+            throw new NotEnoughChangeException();
+        }
+
+        return $return;
     }
 
     private function getCoinCartridge(float $value): ?CoinCartridge

@@ -8,6 +8,8 @@ The vending machine accepts money in the form of coins of values 0.05, 0.10, 0.2
 
 The machine can sell three items: Water = 0.65, Juice = 1.00, Soda = 1.50.
 
+The machine will use inserted coins for giving exchange. Also coins used in item bought will be added as exchange coins.
+
 ## Some decisions
 
 Decided to use PHP and Symfony in order to create an Hexagonal application with a couple of Bounded Contexts, one for `Vending` (machine) and another one for the `SharedKernel`.

@@ -6,13 +6,13 @@ use App\Vending\Domain\Cash\Dto\CoinCartridgeDto;
 use App\Vending\Domain\Cash\Entity\Cash;
 use App\Vending\Domain\Cash\Entity\Coin;
 use App\Vending\Domain\Cash\Entity\CoinCartridge;
+use App\Vending\Domain\Cash\Exception\NotEnoughChangeException;
 use App\Vending\Domain\Inventory\Dto\InventoryItemDto;
 use App\Vending\Domain\Inventory\Entity\Inventory;
 use App\Vending\Domain\Inventory\Entity\InventoryItem;
 use App\Vending\Domain\Inventory\Exception\ItemDoesNotExistException;
 use App\Vending\Domain\Machine\Entity\VendingMachine;
 use App\Vending\Domain\Machine\Exception\InsufficientCreditException;
-use App\Vending\Domain\Machine\Exception\NotEnoughChangeException;
 use App\Vending\Domain\Machine\Exception\ProductIsDepletedException;
 use App\Vending\Domain\Machine\Service\SupplyService;
 use PHPUnit\Framework\TestCase;
@@ -185,7 +185,7 @@ class SupplyServiceTest extends TestCase
 
         $sut->addCredit(Coin::create(1.0));
 
-        $change = $sut->calculateExchangeForItem('water');
+        $change = $sut->calculateExchangeCoinsForItemBuy('water');
 
         $this->assertSame(2, count($change->getCoinCartridges()));
         $this->assertSame(1, $change->getQuantityForCoinValue(0.25));
@@ -212,7 +212,7 @@ class SupplyServiceTest extends TestCase
 
         $sut->addCredit(Coin::create(1.0));
 
-        $change = $sut->calculateExchangeForItem('juice');
+        $change = $sut->calculateExchangeCoinsForItemBuy('juice');
 
         $this->assertSame(0, count($change->getCoinCartridges()));
     }
@@ -226,7 +226,7 @@ class SupplyServiceTest extends TestCase
         $sut = VendingMachine::create();
         $sut->getInventory()->append($inventoryItem);
 
-        $sut->calculateExchangeForItem('water');
+        $sut->calculateExchangeCoinsForItemBuy('water');
     }
 
     public function testCanNotGiveChangeBecauseNotEnoughChange(): void
@@ -239,6 +239,6 @@ class SupplyServiceTest extends TestCase
         $sut->getInventory()->append($inventoryItem);
         $sut->addCredit(Coin::create(1.0));
 
-        $sut->calculateExchangeForItem('water');
+        $sut->calculateExchangeCoinsForItemBuy('water');
     }
 }

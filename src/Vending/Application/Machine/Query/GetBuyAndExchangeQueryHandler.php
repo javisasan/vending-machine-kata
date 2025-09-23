@@ -15,7 +15,7 @@ class GetBuyAndExchangeQueryHandler
     {
         $vendingMachine = $this->repository->get();
 
-        $exchange = $vendingMachine->calculateExchangeForItem($query->getSelector());
+        $exchange = $vendingMachine->calculateExchangeCoinsForItemBuy($query->getSelector());
 
         $response = new GetBuyAndExchangeQueryHandlerResponse($query->getSelector(), $exchange);
 
