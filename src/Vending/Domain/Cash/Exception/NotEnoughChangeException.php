@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Vending\Domain\Machine\Exception;
+namespace App\Vending\Domain\Cash\Exception;
 
 use App\SharedKernel\Domain\Exception\DomainException;
 
